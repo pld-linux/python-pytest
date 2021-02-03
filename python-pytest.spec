@@ -44,7 +44,6 @@ BuildRequires:	python-pluggy < 1.0
 BuildRequires:	python-requests
 BuildRequires:	python-six >= 1.10.0
 BuildRequires:	python-wcwidth
-BuildConflicts:	python-backports.unittest_mock
 BuildConflicts:	python-pytest-benchmark < 3.2.1
 # outdated
 BuildConflicts:	python-pytest-catchlog
@@ -96,8 +95,8 @@ BuildRequires:	sphinx-pdg-3 >= 1.8.2
 %endif
 Requires:	python-modules >= 1:2.7
 Requires:	python-setuptools
-Obsoletes:	python-pytest-cache
-Obsoletes:	python-pytest-catchlog
+Obsoletes:	python-pytest-cache < 1.1
+Obsoletes:	python-pytest-catchlog < 1.2.3
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -113,8 +112,8 @@ Summary(pl.UTF-8):	Proste, ale funkcjonalne narzędzie testujące dla Pythona
 Group:		Development/Languages
 Requires:	python3-devel-tools >= 1:3.4
 Requires:	python3-setuptools
-Obsoletes:	python3-pytest-cache
-Obsoletes:	python3-pytest-catchlog
+Obsoletes:	python3-pytest-cache < 1.1
+Obsoletes:	python3-pytest-catchlog < 1.2.3
 
 %description -n python3-pytest
 py.test provides simple, yet powerful testing for Python.
@@ -146,7 +145,7 @@ export PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
 %if %{with tests}
 # test_pdb_custom_cls_with_settrace fails without preinstalled pytest
 PYTHONPATH=$(pwd)/src \
-%{__python} -m pytest -k 'not test_pdb' testing
+%{__python} -m pytest -k 'not test_pdb and not test_cache_writefail_permissions and not test_cache_failure_warns' testing
 %endif
 %endif
 
@@ -157,7 +156,7 @@ PYTHONPATH=$(pwd)/src \
 # test_pdb_custom_cls_with_settrace fails without preinstalled pytest
 # test_pdb_* which spawn pdb hang under some unclear conditions
 PYTHONPATH=$(pwd)/src \
-%{__python3} -m pytest -k 'not test_pdb' testing
+%{__python3} -m pytest -k 'not test_pdb and not test_cache_writefail_permissions and not test_cache_failure_warns' testing
 %endif
 %endif
 
