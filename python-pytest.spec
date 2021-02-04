@@ -1,3 +1,4 @@
+# NOTE: for versions >= 5 (for python 3.5+) see python3-pytest.spec
 #
 # Conditional build:
 %bcond_without	doc	# HTML documentation build
@@ -9,6 +10,7 @@
 %define 	module	pytest
 Summary:	Simple and popular testing tool for Python
 Summary(pl.UTF-8):	Proste i popularne narzędzie testujące dla Pythona
+# note: keep 4.x here for python2 support
 Name:		python-%{module}
 Version:	4.6.11
 Release:	1
