@@ -144,8 +144,10 @@ export PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
 
 %if %{with tests}
 # test_pdb_custom_cls_with_settrace fails without preinstalled pytest
+# test_cache_writefail_permissions, test_cache_failure_warns makes tests unreliable due to post-test cleanup failures
+# test_pytester.py, test_terminal.py, test_unittest.py need ptys to spawn processes with terminal
 PYTHONPATH=$(pwd)/src \
-%{__python} -m pytest -k 'not test_pdb and not test_cache_writefail_permissions and not test_cache_failure_warns' testing
+%{__python} -m pytest -k 'not (test_pdb or test_cache_writefail_permissions or test_cache_failure_warns or test_pytester or test_terminal or test_unittest)' testing
 %endif
 %endif
 
@@ -155,8 +157,10 @@ PYTHONPATH=$(pwd)/src \
 %if %{with tests}
 # test_pdb_custom_cls_with_settrace fails without preinstalled pytest
 # test_pdb_* which spawn pdb hang under some unclear conditions
+# test_cache_writefail_permissions, test_cache_failure_warns makes tests unreliable due to post-test cleanup failures
+# test_pytester.py, test_terminal.py, test_unittest.py need ptys to spawn processes with terminal
 PYTHONPATH=$(pwd)/src \
-%{__python3} -m pytest -k 'not test_pdb and not test_cache_writefail_permissions and not test_cache_failure_warns' testing
+%{__python3} -m pytest -k 'not (test_pdb or test_cache_writefail_permissions or test_cache_failure_warns or test_pytester or test_terminal or test_unittest)' testing
 %endif
 %endif
 
