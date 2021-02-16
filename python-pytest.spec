@@ -3,7 +3,7 @@
 # Conditional build:
 %bcond_without	doc	# HTML documentation build
 %bcond_without	python2 # CPython 2.x module
-%bcond_without	python3 # CPython 3.x module
+%bcond_with	python3 # CPython 3.x module (built from python3-pytest.spec)
 %bcond_without	tests	# unit tests
 
 %define		pylib_version	1.5.0
@@ -13,7 +13,7 @@ Summary(pl.UTF-8):	Proste i popularne narzędzie testujące dla Pythona
 # note: keep 4.x here for python2 support
 Name:		python-%{module}
 Version:	4.6.11
-Release:	1
+Release:	2
 License:	MIT
 Group:		Development/Languages/Python
 #Source0Download: https://pypi.org/simple/pytest/
@@ -177,21 +177,21 @@ done
 %install
 rm -rf $RPM_BUILD_ROOT
 
+%if %{with python2}
+%py_install
+
+%{__mv} $RPM_BUILD_ROOT%{_bindir}/py.test{,-2}
+%{__mv} $RPM_BUILD_ROOT%{_bindir}/pytest{,-2}
+
+# pytest.py source seems required for "monkeypatching" tests
+%py_postclean -x pytest.py
+%endif
+
 %if %{with python3}
 %py3_install
 
 %{__mv} $RPM_BUILD_ROOT%{_bindir}/py.test{,-3}
 %{__mv} $RPM_BUILD_ROOT%{_bindir}/pytest{,-3}
-%endif
-
-%if %{with python2}
-%py_install
-
-ln $RPM_BUILD_ROOT%{_bindir}/py.test{,-2}
-ln $RPM_BUILD_ROOT%{_bindir}/pytest{,-2}
-
-# pytest.py source seems required for "monkeypatching" tests
-%py_postclean -x pytest.py
 %endif
 
 %clean
@@ -201,9 +201,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS CHANGELOG.rst LICENSE README.rst
-%attr(755,root,root) %{_bindir}/py.test
 %attr(755,root,root) %{_bindir}/py.test-2
-%attr(755,root,root) %{_bindir}/pytest
 %attr(755,root,root) %{_bindir}/pytest-2
 %{py_sitescriptdir}/pytest.py*
 %{py_sitescriptdir}/_pytest
