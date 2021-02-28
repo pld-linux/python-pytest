@@ -13,7 +13,7 @@ Summary(pl.UTF-8):	Proste i popularne narzędzie testujące dla Pythona
 # note: keep 4.x here for python2 support
 Name:		python-%{module}
 Version:	4.6.11
-Release:	3
+Release:	4
 License:	MIT
 Group:		Development/Languages/Python
 #Source0Download: https://pypi.org/simple/pytest/
@@ -99,6 +99,7 @@ BuildRequires:	python3-sphinxcontrib-trio
 BuildRequires:	sphinx-pdg-3 >= 1.8.2
 %endif
 Requires:	python-modules >= 1:2.7
+Requires:	python-pluggy
 Requires:	python-setuptools
 Obsoletes:	python-pytest-cache < 1.1
 Obsoletes:	python-pytest-catchlog < 1.2.3
