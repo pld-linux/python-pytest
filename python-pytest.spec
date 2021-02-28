@@ -90,6 +90,9 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 BuildRequires:	sed >= 4.0
 %if %{with doc}
+BuildRequires:	python3-atomicwrites
+BuildRequires:	python3-attrs
+BuildRequires:	python3-pluggy
 BuildRequires:	python3-pygments_pytest
 BuildRequires:	python3-sphinx_removed_in >= 0.2.0
 BuildRequires:	python3-sphinxcontrib-trio
