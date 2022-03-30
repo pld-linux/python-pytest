@@ -13,7 +13,7 @@ Summary(pl.UTF-8):	Proste i popularne narzędzie testujące dla Pythona
 # note: keep 4.x here for python2 support
 Name:		python-%{module}
 Version:	4.6.11
-Release:	5
+Release:	6
 License:	MIT
 Group:		Development/Languages/Python
 #Source0Download: https://pypi.org/simple/pytest/
