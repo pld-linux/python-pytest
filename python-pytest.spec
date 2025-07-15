@@ -141,7 +141,7 @@ Dokumentacja pakietu Pythona py.test.
 
 %prep
 %setup -q -n %{module}-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 export PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
